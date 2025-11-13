@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="CSS/blog-style.css" />
   <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
-  <title>Blog Post | ARK</title>
+  <title>Blog Post | ARK — Comments</title>
   <style>
     .container { max-width: 900px; margin: 40px auto; padding: 0 16px; }
     .post-img { width:100%; max-height:400px; object-fit:cover; border-radius:8px; }
@@ -15,6 +15,7 @@
     #giscus-wrapper { margin-top:40px; border-top:1px solid #eee; padding-top:24px; }
     h2.post-title { margin-bottom: 8px; }
     .btn { display: inline-block; padding: 10px 18px; background: linear-gradient(45deg,#ff6b6b,#f06d06); color: #fff; border-radius: 22px; text-decoration:none; font-weight:bold; }
+    .post-content { margin-top:16px; line-height:1.6; white-space:pre-wrap; }
   </style>
 </head>
 <body>
@@ -28,7 +29,7 @@
     <a href="index.html" class="back-btn btn">← Back to Blog</a>
 
     <article id="post">
-      <!-- Filled by JS -->
+      <!-- Post content injected by JS -->
     </article>
 
     <!-- ARK Comments (Giscus) -->
@@ -39,7 +40,7 @@
   </main>
 
   <script>
-    // Utility: get query param 'index'
+    // Get query param 'index'
     function getQueryParam(name) {
       const params = new URLSearchParams(window.location.search);
       return params.has(name) ? params.get(name) : null;
@@ -68,7 +69,7 @@
       postEl.innerHTML = `
         ${imageHtml}
         <h2 class="post-title">${escapeHtml(blog.title)}</h2>
-        <p class="post-meta"><strong>By:</strong> ${escapeHtml(blog.author)} • <em>${escapeHtml(blog.date || '')}</em></p>
+        <p class="post-meta"><strong>By:</strong> ${escapeHtml(blog.author)}${blog.date ? ' • <em>' + escapeHtml(blog.date) + '</em>' : ''}</p>
         <div class="post-content">${nl2br(escapeHtml(blog.content || ''))}</div>
       `;
 
@@ -76,7 +77,7 @@
       loadGiscus(identifier);
     }
 
-    // ---- Helpers ----
+    // Helpers
     function makeIdentifier(idx, title) {
       const slug = (title || 'post').toString().toLowerCase()
         .replace(/[^a-z0-9]+/g,'-')
@@ -94,7 +95,7 @@
       return text.replace(/\n/g, '<br>');
     }
 
-    // ---- GISCUS loader (with your actual config) ----
+    // Giscus loader (your config)
     function loadGiscus(term) {
       const container = document.getElementById('giscus-comments');
       container.innerHTML = '';
@@ -104,11 +105,12 @@
       script.async = true;
       script.crossOrigin = 'anonymous';
 
-      // Your actual configuration from giscus.app
+      // Your provided Giscus settings (already filled)
       script.setAttribute('data-repo', 'Fuzzykenji/ArkBlog');
       script.setAttribute('data-repo-id', 'R_kgDOOiXEtw');
       script.setAttribute('data-category', 'Announcements');
       script.setAttribute('data-category-id', 'DIC_kwDOOiXEt84Cxw6U');
+      // We use specific mapping so every post has its own thread via data-term
       script.setAttribute('data-mapping', 'specific');
       script.setAttribute('data-term', term);
       script.setAttribute('data-strict', '0');
@@ -120,6 +122,7 @@
 
       container.appendChild(script);
 
+      // Optional small label
       const label = document.createElement('p');
       label.style.fontSize = '12px';
       label.style.color = '#666';
