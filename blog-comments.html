@@ -12,7 +12,6 @@
     .post-img { width:100%; max-height:400px; object-fit:cover; border-radius:8px; }
     .post-meta { color:#666; margin-bottom: 8px; }
     .back-btn { display:inline-block; margin-bottom:16px; text-decoration:none; }
-    /* Giscus wrapper name style */
     #giscus-wrapper { margin-top:40px; border-top:1px solid #eee; padding-top:24px; }
     h2.post-title { margin-bottom: 8px; }
     .btn { display: inline-block; padding: 10px 18px; background: linear-gradient(45deg,#ff6b6b,#f06d06); color: #fff; border-radius: 22px; text-decoration:none; font-weight:bold; }
@@ -35,7 +34,6 @@
     <!-- ARK Comments (Giscus) -->
     <section id="giscus-wrapper" aria-labelledby="giscus-heading">
       <h3 id="giscus-heading">ARK Comments</h3>
-      <!-- This is the container where giscus will inject the comment widget -->
       <div id="giscus-comments"></div>
     </section>
   </main>
@@ -57,7 +55,6 @@
     } else {
       const blog = blogs[index];
 
-      // Resolve image path or data url
       function getImageSrc(image) {
         if (!image) return '';
         if (image.startsWith('data:image/')) return image;
@@ -68,7 +65,6 @@
         ? `<img src="${getImageSrc(blog.image)}" alt="${escapeHtml(blog.title)}" class="post-img" />`
         : '';
 
-      // Render the post
       postEl.innerHTML = `
         ${imageHtml}
         <h2 class="post-title">${escapeHtml(blog.title)}</h2>
@@ -76,8 +72,6 @@
         <div class="post-content">${nl2br(escapeHtml(blog.content || ''))}</div>
       `;
 
-      // Now load Giscus with a unique term for this post so each post has a separate discussion
-      // We'll generate an identifier like: ARK-post-<index>-<slugified-title>
       const identifier = makeIdentifier(index, blog.title);
       loadGiscus(identifier);
     }
@@ -93,27 +87,16 @@
 
     function escapeHtml(str) {
       if (!str) return '';
-      return str.replace(/[&<>"']/g, function (m) {
-        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
-      });
+      return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
     function nl2br(text) {
       return text.replace(/\n/g, '<br>');
     }
 
-    // ---- GISCUS loader ----
-    // Replace the placeholders below with your repo + IDs
-    // REQUIRED: replace OWNER/REPO, REPO_ID, CATEGORY_NAME and CATEGORY_ID with your real values
-    // Example placeholders:
-    //    data-repo="your-github-username/your-repo"
-    //    data-repo-id="MDEwOlJlcG9zaXRvcnkxMjM0NTY3OA=="
-    //    data-category="General"
-    //    data-category-id="DIC_kwDOEXAMPLE4B4x"
+    // ---- GISCUS loader (with your actual config) ----
     function loadGiscus(term) {
       const container = document.getElementById('giscus-comments');
-
-      // Clean previous (if any)
       container.innerHTML = '';
 
       const script = document.createElement('script');
@@ -121,27 +104,22 @@
       script.async = true;
       script.crossOrigin = 'anonymous';
 
-      // === IMPORTANT: replace the placeholders below ===
-      script.setAttribute('data-repo', 'https://fuzzykenji.github.io/ArkBlog/blog-comments.html');       // <-- REPLACE: owner/repo
-      script.setAttribute('data-repo-id', 'REPO_ID');       // <-- REPLACE: repo id (Base64-like)
-      script.setAttribute('data-category', 'GENERAL'); // <-- REPLACE: discussion category name
-      script.setAttribute('data-category-id', 'CATEGORY_ID'); // <-- REPLACE: category id
-      // ==================================================
-
-      // Use 'specific' mapping and a custom term per-post
+      // Your actual configuration from giscus.app
+      script.setAttribute('data-repo', 'Fuzzykenji/ArkBlog');
+      script.setAttribute('data-repo-id', 'R_kgDOOiXEtw');
+      script.setAttribute('data-category', 'Announcements');
+      script.setAttribute('data-category-id', 'DIC_kwDOOiXEt84Cxw6U');
       script.setAttribute('data-mapping', 'specific');
       script.setAttribute('data-term', term);
-
-      // Optional settings:
-      script.setAttribute('data-reactions-enabled', '1');   // enable reactions
-      script.setAttribute('data-emit-metadata', '0');      // whether to emit metadata
-      script.setAttribute('data-input-position', 'bottom'); // input position
-      // You can change theme to 'preferred_color_scheme' or 'dark' or other supported themes
-      script.setAttribute('data-theme', 'light');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'bottom');
+      script.setAttribute('data-theme', 'preferred_color_scheme');
+      script.setAttribute('data-lang', 'en');
 
       container.appendChild(script);
 
-      // Add a small label so people know which discussion thread this is (optional)
       const label = document.createElement('p');
       label.style.fontSize = '12px';
       label.style.color = '#666';
