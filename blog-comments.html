@@ -6,16 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="CSS/blog-style.css" />
   <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
-  <title>Blog Post | ARK — Comments</title>
+  <title>Site Feedback | ARK</title>
   <style>
     .container { max-width: 900px; margin: 40px auto; padding: 0 16px; }
-    .post-img { width:100%; max-height:400px; object-fit:cover; border-radius:8px; }
-    .post-meta { color:#666; margin-bottom: 8px; }
     .back-btn { display:inline-block; margin-bottom:16px; text-decoration:none; }
-    #giscus-wrapper { margin-top:40px; border-top:1px solid #eee; padding-top:24px; }
-    h2.post-title { margin-bottom: 8px; }
+    #giscus-wrapper { margin-top:28px; border-top:1px solid #eee; padding-top:20px; }
+    h1, h2 { margin: 8px 0; }
+    .intro { color:#444; margin-top:8px; line-height:1.6; }
     .btn { display: inline-block; padding: 10px 18px; background: linear-gradient(45deg,#ff6b6b,#f06d06); color: #fff; border-radius: 22px; text-decoration:none; font-weight:bold; }
-    .post-content { margin-top:16px; line-height:1.6; white-space:pre-wrap; }
+    p.small { font-size:12px; color:#666; margin-top:10px; }
   </style>
 </head>
 <body>
@@ -26,93 +25,50 @@
   </header>
 
   <main class="container">
-    <a href="index.html" class="back-btn btn">← Back to Blog</a>
+    <a href="index.html" class="back-btn btn">← Back to Home</a>
 
-    <article id="post">
-      <!-- Post content injected by JS -->
-    </article>
+    <section>
+      <h1>ARK — Site Feedback</h1>
+      <p class="intro">
+        Welcome! Use this page to leave general feedback, report bugs, request features,
+        or share suggestions about the site. Your comments will appear for everyone and are stored
+        in our repository's Discussions.
+      </p>
+      <p class="small">Note: You need a GitHub account to post comments (Giscus uses GitHub Discussions).</p>
+    </section>
 
-    <!-- ARK Comments (Giscus) -->
+    <!-- Site-wide comments -->
     <section id="giscus-wrapper" aria-labelledby="giscus-heading">
-      <h3 id="giscus-heading">ARK Comments</h3>
+      <h2 id="giscus-heading">ARK Comments (Site Feedback)</h2>
       <div id="giscus-comments"></div>
     </section>
   </main>
 
   <script>
-    // Get query param 'index'
-    function getQueryParam(name) {
-      const params = new URLSearchParams(window.location.search);
-      return params.has(name) ? params.get(name) : null;
-    }
+    // Site-wide fixed discussion identifier
+    const SITE_DISCUSSION_TERM = 'ARK-site-comments';
 
-    // Load blog from localStorage and render
-    const blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-    const index = parseInt(getQueryParam('index'), 10);
-    const postEl = document.getElementById('post');
-
-    if (!Number.isInteger(index) || index < 0 || index >= blogs.length) {
-      postEl.innerHTML = '<p>Blog post not found. Go back to the <a href="index.html">blog list</a>.</p>';
-    } else {
-      const blog = blogs[index];
-
-      function getImageSrc(image) {
-        if (!image) return '';
-        if (image.startsWith('data:image/')) return image;
-        return '/uploads/' + image;
-      }
-
-      const imageHtml = getImageSrc(blog.image)
-        ? `<img src="${getImageSrc(blog.image)}" alt="${escapeHtml(blog.title)}" class="post-img" />`
-        : '';
-
-      postEl.innerHTML = `
-        ${imageHtml}
-        <h2 class="post-title">${escapeHtml(blog.title)}</h2>
-        <p class="post-meta"><strong>By:</strong> ${escapeHtml(blog.author)}${blog.date ? ' • <em>' + escapeHtml(blog.date) + '</em>' : ''}</p>
-        <div class="post-content">${nl2br(escapeHtml(blog.content || ''))}</div>
-      `;
-
-      const identifier = makeIdentifier(index, blog.title);
-      loadGiscus(identifier);
-    }
-
-    // Helpers
-    function makeIdentifier(idx, title) {
-      const slug = (title || 'post').toString().toLowerCase()
-        .replace(/[^a-z0-9]+/g,'-')
-        .replace(/(^-|-$)/g,'')
-        .substring(0, 60);
-      return `ARK-post-${idx}-${slug}`;
-    }
-
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
-
-    function nl2br(text) {
-      return text.replace(/\n/g, '<br>');
-    }
-
-    // Giscus loader (your config)
+    // Load Giscus once with a fixed term (all visitors share this thread)
     function loadGiscus(term) {
       const container = document.getElementById('giscus-comments');
-      container.innerHTML = '';
+      container.innerHTML = ''; // clear if reloading
 
       const script = document.createElement('script');
       script.src = 'https://giscus.app/client.js';
       script.async = true;
       script.crossOrigin = 'anonymous';
 
-      // Your provided Giscus settings (already filled)
+      // YOUR GISCUS CONFIG (from earlier)
       script.setAttribute('data-repo', 'Fuzzykenji/ArkBlog');
       script.setAttribute('data-repo-id', 'R_kgDOOiXEtw');
       script.setAttribute('data-category', 'Announcements');
       script.setAttribute('data-category-id', 'DIC_kwDOOiXEt84Cxw6U');
-      // We use specific mapping so every post has its own thread via data-term
+
+      // Use a single specific mapping with a fixed term so the comments are site-wide
       script.setAttribute('data-mapping', 'specific');
       script.setAttribute('data-term', term);
+
+      // Other options (kept from your config)
       script.setAttribute('data-strict', '0');
       script.setAttribute('data-reactions-enabled', '1');
       script.setAttribute('data-emit-metadata', '0');
@@ -122,14 +78,15 @@
 
       container.appendChild(script);
 
-      // Optional small label
+      // Optional label for debugging/clarity
       const label = document.createElement('p');
-      label.style.fontSize = '12px';
-      label.style.color = '#666';
-      label.style.marginTop = '8px';
-      label.innerText = `Discussion thread: ${term}`;
+      label.className = 'small';
+      label.innerText = `Discussion: ${term}`;
       container.appendChild(label);
     }
+
+    // initialize
+    document.addEventListener('DOMContentLoaded', () => loadGiscus(SITE_DISCUSSION_TERM));
   </script>
 </body>
 </html>
