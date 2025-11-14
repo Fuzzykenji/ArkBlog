@@ -96,9 +96,6 @@
                                 <div class="about-text padd-15">
                                     <!--about text-->
                                     <p>We are students from Assumption College of Davao who will create an informative app for the visually-impaired to help them explore and experience famous tourist spots in Davao City through a simulation.</p>
-                                   <!-- <div>
-                                        <a href="#" class="btn btn-default">Download CV</a>  
-                                    </div>  -->
                                 </div>
                                 <div class="skills padd-15">
                                     <div class="raw">
@@ -132,31 +129,14 @@
                     <div class="row">
                         <!--fact item-->
                         <div class="fact-item padd-15">
-                            <i class="lni lni-thumbs-up"></i> <!-- Updated to a valid icon -->
+                            <i class="lni lni-thumbs-up"></i>
                             <div class="details">
                             <h3>10</h3>
                             <p>Projects Done</p>
                         </div>
                     </div>
-                        <!--fact item-->
-                        <!--<div class="fact-item padd-15">
-                            <i class="lni lni-cup"></i> 
-                            <div class="details">
-                            <h3>337</h3>
-                            <p>Cup of Coffee</p>
-                        </div>
-                        </div> -->
-                        <!--fact item-->
-                       <!-- <div class="fact-item padd-15">
-                        <i class="lni lni-users"></i> 
-                        <div class="details">
-                        <h3>0</h3>
-                        <p>Satisfied Clients</p>
-                        </div>
-                        </div> -->
-                         <!--fact item-->
                          <div class="fact-item padd-15">
-                            <i class="lni lni-thumbs-up"></i> <!-- Updated to a valid icon -->
+                            <i class="lni lni-thumbs-up"></i>
                             <div class="details">
                             <h3>10</h3>
                             <p>Projects Ongoing</p>
@@ -348,48 +328,23 @@
                         </div>
                       </section>
 
-                     <!-- ===================== CONTACT ===================== -->
-                    <!--  <section class="contact section" id="contact">
-            <div class="container">
-               
-                <h2 class="section-title padd-15">Contact Us</h2>
-                <div class="row">
-                  
-                  <div class="contact-form padd-15">
-                    <form action="#" method="post">
-                      <div class="row">
-                        <div class="form-item col-6 padd-15">
-                          <input type="text" name="name" class="form-control" placeholder="Your Name" required />
-                        </div>
-                        <div class="form-item col-6 padd-15">
-                          <input type="email" name="email" class="form-control" placeholder="Your Email" required />
-                        </div>
-                        <div class="form-item col-12 padd-15">
-                          <input type="text" name="subject" class="form-control" placeholder="Subject" required />
-                        </div>
-                        <div class="form-item col-12 padd-15">
-                          <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
-                        </div>
-                        <div class="form-item col-12 padd-15">
-                          <button type="submit" class="btn btn-default">Send Message</button>
+                    <!-- ===================== SITE-WIDE COMMENTS (replaces Contact) ===================== -->
+                    <section class="contact section" id="contact">
+                      <div class="container">
+                        <h2 class="section-title padd-15">Site Feedback</h2>
+                        <div class="row">
+                          <div style="padding:15px;">
+                            <p>Have feedback about the site? Use this section to report bugs, request features, or leave suggestions. Comments are stored in this repository's Discussions and visible to everyone. (You need a GitHub account to post.)</p>
+                          </div>
+
+                          <!-- Giscus comment widget container -->
+                          <div id="giscus-wrapper" style="width:100%; padding:15px;">
+                            <div id="giscus-comments"></div>
+                            <noscript><p class="small">JavaScript is required to load comments. Please enable JavaScript.</p></noscript>
+                          </div>
                         </div>
                       </div>
-                    </form>
-                  </div>  -->
-                  <!-- Google Map Embed -->
-                  <div class="contact-map padd-15">
-                    <iframe 
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15837.213102194573!2d125.6166866282579!3d7.090800450866563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f9115554d3f877%3A0x88ff74ef25a00438!2sAssumption%20College%20of%20Davao!5e0!3m2!1sen!2sus!4v1745652246132!5m2!1sen!2sus"
-                      width="100%" 
-                      height="300" 
-                      style="border:0; border-radius: 15px;" 
-                      allowfullscreen="" 
-                      loading="lazy">
-                    </iframe>
-                  </div>
-                </div>
-              </div>
-                      </section>
+                    </section>
 
                        <!-- ===================== FOOTER ===================== -->
                         <footer class="footer">
@@ -446,10 +401,38 @@
         document.addEventListener('DOMContentLoaded', checkVisibility);
     </script>
 
+    <!-- Giscus loader (site-wide thread) -->
+    <script>
+      (function() {
+        const SITE_DISCUSSION_TERM = 'ARK-site-comments'; // fixed thread name for site feedback
+        const container = document.getElementById('giscus-comments');
+        if (!container) return;
+
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+
+        // Your Giscus config values
+        script.setAttribute('data-repo', 'Fuzzykenji/ArkBlog');
+        script.setAttribute('data-repo-id', 'R_kgDOOiXEtw');
+        script.setAttribute('data-category', 'Announcements');
+        script.setAttribute('data-category-id', 'DIC_kwDOOiXEt84Cxw6U');
+
+        // Use specific mapping + fixed term so comments are site-wide
+        script.setAttribute('data-mapping', 'specific');
+        script.setAttribute('data-term', SITE_DISCUSSION_TERM);
+
+        script.setAttribute('data-strict', '0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'bottom');
+        script.setAttribute('data-theme', 'preferred_color_scheme');
+        script.setAttribute('data-lang', 'en');
+
+        container.appendChild(script);
+      })();
+    </script>
 
     </body>
 </html>
-
-
-
-
