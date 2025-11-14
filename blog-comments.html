@@ -1,92 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE-Edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="CSS/blog-style.css" />
-  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
-  <title>Site Feedback | ARK</title>
-  <style>
-    .container { max-width: 900px; margin: 40px auto; padding: 0 16px; }
-    .back-btn { display:inline-block; margin-bottom:16px; text-decoration:none; }
-    #giscus-wrapper { margin-top:28px; border-top:1px solid #eee; padding-top:20px; }
-    h1, h2 { margin: 8px 0; }
-    .intro { color:#444; margin-top:8px; line-height:1.6; }
-    .btn { display: inline-block; padding: 10px 18px; background: linear-gradient(45deg,#ff6b6b,#f06d06); color: #fff; border-radius: 22px; text-decoration:none; font-weight:bold; }
-    p.small { font-size:12px; color:#666; margin-top:10px; }
-  </style>
-</head>
-<body>
-  <header class="header">
-    <nav class="nav container padd-15">
-      <a href="index.html" class="nav-logo"><h2>Ark</h2></a>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <main class="container">
-    <a href="index.html" class="back-btn btn">← Back to Home</a>
+        <!-- ===================== CSS ===================== -->
+         <link rel="stylesheet" href="CSS/style.css">
 
-    <section>
-      <h1>ARK — Site Feedback</h1>
-      <p class="intro">
-        Welcome! Use this page to leave general feedback, report bugs, request features,
-        or share suggestions about the site. Your comments will appear for everyone and are stored
-        in our repository's Discussions.
-      </p>
-      <p class="small">Note: You need a GitHub account to post comments (Giscus uses GitHub Discussions).</p>
-    </section>
+         <!-- ===================== LINE ICONS ===================== -->
+         <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
 
-    <!-- Site-wide comments -->
-    <section id="giscus-wrapper" aria-labelledby="giscus-heading">
-      <h2 id="giscus-heading">ARK Comments (Site Feedback)</h2>
-      <div id="giscus-comments"></div>
-    </section>
-  </main>
+         <!-- ===================== SWIPER CSS ===================== -->
+         <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+         
+        <title>ARK</title>
+    </head>
 
-  <script>
-    // Site-wide fixed discussion identifier
-    const SITE_DISCUSSION_TERM = 'ARK-site-comments';
+    <body>
 
-    // Load Giscus once with a fixed term (all visitors share this thread)
-    function loadGiscus(term) {
-      const container = document.getElementById('giscus-comments');
-      container.innerHTML = ''; // clear if reloading
+        <!-- ===================== HEADER ===================== -->
+         <header class="header" id="header">
+            <!-- nav -->
+            <nav class="nav container padd-15">
+                <!-- nav logo -->
+                <a href="#" class="nav-logo">
+                    <h2>Ark</h2>
+                </a>
+                <!--nav menu-->
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <!--nav list-->
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link active-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#about" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#members" class="nav-link">Members</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#services" class="nav-link">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#portfolio" class="nav-link">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="blog.html" class="nav-link">Blog</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+             </nav>
+         </header>
 
-      const script = document.createElement('script');
-      script.src = 'https://giscus.app/client.js';
-      script.async = true;
-      script.crossOrigin = 'anonymous';
+         <!-- ===================== MAIN ===================== -->
+          <main class="main-content">
+             <!-- ===================== HOME ===================== -->
+             
 
-      // YOUR GISCUS CONFIG (from earlier)
-      script.setAttribute('data-repo', 'Fuzzykenji/ArkBlog');
-      script.setAttribute('data-repo-id', 'R_kgDOOiXEtw');
-      script.setAttribute('data-category', 'Announcements');
-      script.setAttribute('data-category-id', 'DIC_kwDOOiXEt84Cxw6U');
+                    <!-- ===================== Comments section xDDD ===================== -->
+                    <section class="contact section" id="contact">
+                      <div class="container">
+                        <h2 class="section-title padd-15">Comments</h2>
+                        <div class="row">
+                          <div style="padding:15px;">
+                            <p>Have feedback about the site or app? Use this section to report bugs, request features, or leave suggestions.(You need a GitHub account to post.)</p>
+                          </div>
 
-      // Use a single specific mapping with a fixed term so the comments are site-wide
-      script.setAttribute('data-mapping', 'specific');
-      script.setAttribute('data-term', term);
+                          <!-- Giscus comments here -->
+                          <div id="giscus-wrapper" style="width:100%; padding:15px;">
+                            <div id="giscus-comments"></div>
+                            <noscript><p class="small">JavaScript is required to load comments. Please enable JavaScript.</p></noscript>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
 
-      // Other options (kept from your config)
-      script.setAttribute('data-strict', '0');
-      script.setAttribute('data-reactions-enabled', '1');
-      script.setAttribute('data-emit-metadata', '0');
-      script.setAttribute('data-input-position', 'bottom');
-      script.setAttribute('data-theme', 'preferred_color_scheme');
-      script.setAttribute('data-lang', 'en');
+                       <!-- ===================== FOOTER ===================== -->
+                        <footer class="footer">
+                            <div class="container footer-container">
+                                <div class="footer-column">
+                                    <h4>About Ark</h4>
+                                    <p>Ark is an innovative platform designed to empower visually impaired users through sound-based navigation and immersive digital experiences.</p>
+                                </div>
+                                <div class="footer-column">
+                                    <h4>Quick Links</h4>
+                                    <ul>
+                                    <li><a href="#home">Home</a></li>
+                                    <li><a href="#about">About</a></li>
+                                    <li><a href="#services">Services</a></li>
+                                    
+                                    </ul>
+                                </div>
+                                <div class="footer-column">
+                                    <h4>Contact Info</h4>
+                                    <p>Email: contact@arknavigator.com</p>
+                                    <p>Phone: +63 912 345 6789</p>
+                                    <p>Address: Assumption College of Davao, Philippines</p>
+                                </div>
+                                <div class="footer-column">
+                                    <h4>Follow Us</h4>
+                                    <div class="social-links">
+                                    <a href="#" class="social-icon"><i class="lni lni-facebook"></i></a>
+                                    <a href="#" class="social-icon"><i class="lni lni-twitter"></i></a>
+                                    <a href="#" class="social-icon"><i class="lni lni-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
 
-      container.appendChild(script);
 
-      // Optional label for debugging/clarity
-      const label = document.createElement('p');
-      label.className = 'small';
-      label.innerText = `Discussion: ${term}`;
-      container.appendChild(label);
-    }
+    <script src="script.js"></script>
 
-    // initialize
-    document.addEventListener('DOMContentLoaded', () => loadGiscus(SITE_DISCUSSION_TERM));
-  </script>
-</body>
+    <script>
+        const sections = document.querySelectorAll('section');
+
+        const checkVisibility = () => {
+            sections.forEach((section) => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
+
+                if (sectionTop < window.innerHeight && sectionBottom >= 0) {
+                    section.classList.add('visible');
+                } else {
+                    section.classList.remove('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', checkVisibility);
+        document.addEventListener('DOMContentLoaded', checkVisibility);
+    </script>
+
+    <!-- Giscus loader (site-wide thread) -->
+    <script>
+      (function() {
+        const SITE_DISCUSSION_TERM = 'ARK-site-comments'; // fixed thread name for site feedback
+        const container = document.getElementById('giscus-comments');
+        if (!container) return;
+
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+
+        // Your Giscus config values
+        script.setAttribute('data-repo', 'Fuzzykenji/ArkBlog');
+        script.setAttribute('data-repo-id', 'R_kgDOOiXEtw');
+        script.setAttribute('data-category', 'Announcements');
+        script.setAttribute('data-category-id', 'DIC_kwDOOiXEt84Cxw6U');
+
+        // Use specific mapping + fixed term so comments are site-wide
+        script.setAttribute('data-mapping', 'specific');
+        script.setAttribute('data-term', SITE_DISCUSSION_TERM);
+
+        script.setAttribute('data-strict', '0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'bottom');
+        script.setAttribute('data-theme', 'preferred_color_scheme');
+        script.setAttribute('data-lang', 'en');
+
+        container.appendChild(script);
+      })();
+    </script>
+
+    </body>
 </html>
+
+
