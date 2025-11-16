@@ -535,6 +535,8 @@ nav a:hover {
 .member-roles .programmer { background: #6c6ce5; }
 .member-roles .sub-programmer { background: #ffd15c; color: #222; }
 .member-roles .technical-assistant { background: #ff4c60; }
+.member-roles .technical { background: #4caf50; }
+.member-roles .writer { background: #ff9800; }
 
 /* Responsive for mobile */
 @media (max-width: 600px) {
