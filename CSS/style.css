@@ -988,9 +988,89 @@ section.visible {
   .footer { padding: 20px 5px 10px; font-size: 12px; }
 }
 
+/* ========== Mobile Responsiveness (Phones) ========== */
+@media (max-width: 600px) {
+  /* Header & Nav */
+  .header {
+    position: relative;
+    height: auto;
+    padding: 10px 15px;
+  }
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    height: auto;
+  }
+  .nav-logo { font-size: 1.5rem; }
+  .nav-list {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .nav-link { font-size: 0.9rem; }
+  .nav-btns { flex-direction: column; gap: 10px; }
+
+  /* Hero Section */
+  .hero {
+    height: auto;
+    padding: 80px 15px;
+    text-align: center;
+  }
+  .hero-details .title {
+    font-size: 2.2rem;
+    margin-top: 10px;
+  }
+  .hero-details .description { font-size: 1rem; }
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .button { width: 100%; padding: 12px 0; font-size: 1rem; }
+
+  /* About Section */
+  .about { flex-direction: column; gap: 15px; }
+  .about-img, .about-content { flex: 1 1 100%; max-width: 100%; transform: none; }
+  .about-content .rounded { padding: 1rem; }
+
+  /* Members Section */
+  .members-list { gap: 20px; }
+  .member-card { flex-direction: column; text-align: center; padding: 15px; }
+  .member-image img { width: 90px; height: 90px; }
+  .member-roles { justify-content: center; }
+
+  /* Services Section */
+  .services { flex-direction: column; gap: 15px; }
+  .services .service-item { flex: 1 1 100%; max-width: 100%; margin: 0 auto; }
+
+  /* Portfolio Section */
+  .portfolio-item { flex: 1 1 100%; max-width: 100%; margin-bottom: 20px; }
+
+  /* Contact Section */
+  .contact .row { flex-direction: column; gap: 20px; }
+  .contact-form, .contact-map { flex: 1 1 100%; max-width: 100%; padding: 15px; }
+  .contact-form .form-control { font-size: 0.9rem; padding: 12px; max-width: 100%; }
+
+  /* Footer */
+  .footer-container { flex-direction: column; gap: 15px; }
+  .footer-column { width: 100%; min-width: 0; }
+  .footer { padding: 20px 10px; font-size: 12px; }
+}
+
+/* Ultra-small phones (< 400px) */
+@media (max-width: 400px) {
+  .hero-details .title { font-size: 1.8rem; }
+  .hero-details .description { font-size: 0.9rem; }
+  .button { font-size: 0.9rem; padding: 10px 0; }
+  .about-content .rounded { padding: 0.8rem; }
+  .section-title { font-size: 1.2rem; }
+}
+
+
 /* Empty media queries left for future tweaks */
 @media only screen and (max-width:1200px) {}
 @media only screen and (max-width:968px) {}
 @media only screen and (max-width:576px) {}
 @media only screen and (max-width:320px) {}
+
 
